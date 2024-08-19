@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form">
+    <Dialog title="Create Record">
+        <content>
+            <form:SimpleForm >
+                <Label text="Sales Order Number"></Label>
+                <Input value="{formData>/SalesOrder/Number}" editable="true" type="Number"></Input>
+                <Label text="Customer Name"></Label>
+                <Input value="{formData>/SalesOrder/CustomerName}" editable="true"></Input>
+                <Label text="Customer Number"></Label>
+                <Input value="{formData>/SalesOrder/CustomerNumber}" editable="true" type="Number"></Input>
+                <Label text="Total Sales Order"></Label>
+                <Input value="{formData>/SalesOrder/TotalSales}" editable="true" type="Number"></Input>
+            </form:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Cancel" press="onCloseCreateDialog"></Button>
+        </beginButton>
+        <endButton>
+            <Button text="Submit" type="Emphasized" press="onSaveCreateDialog"></Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

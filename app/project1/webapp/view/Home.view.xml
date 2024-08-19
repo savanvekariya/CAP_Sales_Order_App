@@ -1,0 +1,57 @@
+<mvc:View
+    controllerName="project1.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <content>
+            <Table items="{mainModel>/SalesOrder}">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Sales Orders" />
+                        <ToolbarSpacer />
+                        <SearchField
+                            placeholder="Enter title to search"
+                            width="30%"
+                        />
+                        <Button icon="sap-icon://add" text="Add" press="onCreate"></Button>
+
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column >
+                        <Text text="Sales Order Number" ></Text>
+                    </Column>
+                    <Column >
+                        <Text text="Customer Name" ></Text>
+                    </Column>
+                    <Column >
+                        <Text text="Customer Number" ></Text>
+                    </Column>
+                    <Column >
+                        <Text text="Total Sales Order" ></Text>
+                    </Column>
+                    <Column width="8rem"/>
+                </columns>
+                <items>
+                    <ColumnListItem >
+                        <cells>
+                            <Text text="{mainModel>soNumber}"></Text>
+                            <Text text="{mainModel>customerName}"></Text>
+                            <Text text="{mainModel>customerNumber}"></Text>
+                            <Text text="{mainModel>totalOrderItems}"></Text>
+                            <HBox >
+                                <Button icon="sap-icon://edit" type="Transparent" press="onEdit"></Button>
+                                <Button icon="sap-icon://delete" type="Transparent" press="onDelete"></Button>
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>
