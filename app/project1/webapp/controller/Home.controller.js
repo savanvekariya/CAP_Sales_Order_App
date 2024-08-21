@@ -111,7 +111,42 @@ sap.ui.define([
                 })
 
                 this.createRecordDialog.close()
+            },
+            onEdit: async function (oEvent) {
+                let oContext = oEvent.getSource().getBindingContext('mainModel').getObject()
+                let oJSONModel = new sap.ui.model.json.JSONModel({
+                    'oPayload' : oContext
+                })
+                this.getView().setModel(oJSONModel, 'oPayloadModel')
 
+                if (!this.createRecordDialog) {
+                    this.createRecordDialog = await Fragment.load({
+                        id: this.getView().getId(),
+                        name: "project1.fragments.EditDialog",
+                        controller: this
+                    })
+                    this.getView().addDependent(this.createRecordDialog);
+                }
+                this.createRecordDialog.open()
+            },
+            onSaveEditDialog: function () {
+                let oModel = this.getOwnerComponent().getModel('mainModel')
+                // let SalesOrder = this.getView().getModel('formData').getProperty('SalesOrder')
+                // let data = {
+                //     soNumber: SalesOrder.Number,
+                //     customerName: SalesOrder.CustomerName,
+                //     customerNumber: SalesOrder.CustomerNumber,
+                //     totalOrderItems: SalesOrder.TotalSales
+
+                // }
+                // oModel.update(`/SalesOrder(soNumber=${oRecord.soNumber})`, data, {
+                //     success: function (res) {
+                //         console.log(res)
+                //     },
+                //     error: function (error) {
+                //         console.error(error)
+                //     }
+                // })
             }
         });
     });
