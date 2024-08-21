@@ -115,7 +115,7 @@ sap.ui.define([
             onEdit: async function (oEvent) {
                 let oContext = oEvent.getSource().getBindingContext('mainModel').getObject()
                 let oJSONModel = new sap.ui.model.json.JSONModel({
-                    'oPayload' : oContext
+                    'oPayload': oContext
                 })
                 this.getView().setModel(oJSONModel, 'oPayloadModel')
 
@@ -130,23 +130,25 @@ sap.ui.define([
                 this.createRecordDialog.open()
             },
             onSaveEditDialog: function () {
-                let oModel = this.getOwnerComponent().getModel('mainModel')
-                // let SalesOrder = this.getView().getModel('formData').getProperty('SalesOrder')
-                // let data = {
-                //     soNumber: SalesOrder.Number,
-                //     customerName: SalesOrder.CustomerName,
-                //     customerNumber: SalesOrder.CustomerNumber,
-                //     totalOrderItems: SalesOrder.TotalSales
+                let oModel = this.getOwnerComponent().getModel('mainModel');
+                let { oPayload } = this.getView().getModel('oPayloadModel').getData();
 
-                // }
-                // oModel.update(`/SalesOrder(soNumber=${oRecord.soNumber})`, data, {
-                //     success: function (res) {
-                //         console.log(res)
-                //     },
-                //     error: function (error) {
-                //         console.error(error)
-                //     }
-                // })
+                delete oPayload.orderDate
+                // delete oPayload.inquiryNumber
+                // delete oPayload.PoNumber
+                delete oPayload.__metadata
+
+                oModel.update(`/SalesOrder('${oPayload.soNumber}')`, oPayload, {
+                    success: (res) => {
+                        console.log(res);
+                        this.createRecordDialog.close();
+                        this._onReadData();
+                    },
+                    error: (error) => {
+                        console.error(error);
+                        this.createRecordDialog.close();
+                    }
+                });
             }
         });
     });
